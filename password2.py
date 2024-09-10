@@ -1,5 +1,12 @@
 import random
+from dotenv import load_dotenv
 from json import *
+import os
+
+load_dotenv()
+
+key= os.getenv("MASTER_KEY")
+
 def passgenerator():
     """ No paramertres are required.
     This function gives gives the password (mixture of symbols, numbers, characters).
@@ -103,4 +110,10 @@ def  delete():
                                         dump(dic, j_j, indent=4)
                                 print(f" website : {website} deleted")        
                                 
-                                  
+def display():
+    """this function is for displaying all the content of json file format with master key """
+    entered_key = input("Enter the mater key:")
+    if key == entered_key:
+        with open("./password.json", mode="r") as jjk:
+                dic = load(jjk)
+                print(dic)                        
