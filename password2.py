@@ -38,7 +38,7 @@ def search():
     see = input("Enter the website name")
     
     try :
-        with open("./passdata.json", mode="r") as json_obj:
+        with open("./password.json", mode="r") as json_obj:
             dic2=load(json_obj)    
             
     except FileNotFoundError as error:
@@ -80,11 +80,11 @@ def Save():
                 }
             }
     
-    with open("./passdata.json", mode="r") as json_obj:
+    with open("./password.json", mode="r") as json_obj:
             dic=load(json_obj)    
             dic.update(new_dic)
             
-    with open("./passdata.json", mode="w") as j_obj:
+    with open("./password.json", mode="w") as j_obj:
             dump(dic, j_obj, indent=4)           
             
 def  delete():
