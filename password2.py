@@ -96,7 +96,7 @@ def Save():
             
 def  Delete():
         """this function delete the sub json block from the main Json Storage"""
-        entered_key = input("Enter master key for authority:"):
+        entered_key = input("Enter master key for authority:")
         if key ==  entered_key:   
             with open("./password.json", mode="r") as json_obj:
                         dic=load(json_obj)    
