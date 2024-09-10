@@ -126,21 +126,66 @@ def Display():
                 print(dic)  
     else :
         print("incorrect master key !!!")                                  
-                
+
+def Update():
+    """ This function updates the email and/or password for a given website in the JSON file. """
+    entered_key = input("Enter the master key for authority: ")
+    if key == entered_key:
+        with open("./password.json", mode="r") as json_obj:
+            dic = load(json_obj)
+        
+        if len(dic) == 0:
+            print("The JSON file is empty! Please add data first.")
+            return
+        
+        website = input("Enter the website name to update: ")
+        
+        if website not in dic:
+            print(f"Website '{website}' not found in the repository.")
+            return
+        
+        print("Leave the field blank if you do not want to update it.")
+        new_email = input("Enter new email (or press Enter to keep current): ")
+        new_password = input("Enter new password (or press Enter to keep current): ")
+        
+        if new_email == "":
+            new_email = dic[website]["email"]
+        if new_password == "":
+            new_password = dic[website]["password"]
+        
+        dic[website] = {
+            "email": new_email,
+            "password": new_password
+        }
+        
+        with open("./password.json", mode="w") as j_obj:
+            dump(dic, j_obj, indent=4)
+        
+        print(f"Website '{website}' has been updated.")
+    
+    else:
+        print("You are not authorized to perform this action!")
+         
+
 work = input("Do you want to work with password manager: \n Enter True or False:").capitalize()
-while(work):
-    print(" Enter 1 to Display data \n Enter 2 to Delete Password \n Enter 3 to Save Password \n Enter 4 to Search Password \n Enter 5 to Exit System")
+while work:
+    print("Enter 1 to Display data \nEnter 2 to Delete Password \nEnter 3 to Save Password \nEnter 4 to Search Password \nEnter 5 to Update Password \nEnter 6 to Exit System")
     ch = int(input())
-    if(ch ==1):
-        Display()   
-    elif(ch ==2):
+    if ch == 1:
+        Display()
+    elif ch == 2:
         Delete()
-    elif(ch ==3):
+    elif ch == 3:
         Save()
-    elif(ch ==4):
+    elif ch == 4:
         Search()
-    elif(ch ==5):
-        print("Your getting exit from system...3")
+    elif ch == 5:
+        Update()
+    elif ch == 6:
+        print("Exiting the system...3")
         work = False
         time.sleep(3)
         os.system('cls')
+    else:
+        print("Invalid option, please try again.")
+        
