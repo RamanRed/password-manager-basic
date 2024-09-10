@@ -74,7 +74,7 @@ def Save():
     web_ent=input("Enter Website name :")
     user_email_ent=input("Enter Email name :")
     
-    ch = input(" Do you want us to generate password!!! \n yes / or ").lower()
+    ch = input(" Do you want us to generate password!!! \n yes or no ").lower()
     
     if ch == "yes":
         pass_ent = passgenerator()
@@ -96,6 +96,7 @@ def Save():
             
 def  Delete():
         """this function delete the sub json block from the main Json Storage"""
+        del_key=""
         entered_key = input("Enter master key for authority:")
         if key ==  entered_key:   
             with open("./password.json", mode="r") as json_obj:
@@ -107,10 +108,11 @@ def  Delete():
                             website = input("Enter the website name to be ")
                             for j in dic :
                                 if j == website:
-                                    del dic[website]
-                                    with open("./password.json", mode="w") as j_j:
-                                            dump(dic, j_j, indent=4)
-                                    print(f" website : {website} deleted")        
+                                    del_key = j
+            del dic[del_key]
+            with open("./password.json", mode="w") as j_j:
+                    dump(dic, j_j, indent=4)
+            print(f" website : {website} deleted")                                
         else :
             print("Your are not a authorize person!!!")
             
@@ -128,7 +130,7 @@ def Display():
 work = input("Do you want to work with password manager: \n Enter True or False:").capitalize()
 while(work):
     print(" Enter 1 to Display data \n Enter 2 to Delete Password \n Enter 3 to Save Password \n Enter 4 to Search Password \n Enter 5 to Exit System")
-    ch = input()
+    ch = int(input())
     if(ch ==1):
         Display()   
     elif(ch ==2):
@@ -139,6 +141,6 @@ while(work):
         Search()
     elif(ch ==5):
         print("Your getting exit from system...3")
-        time.sleep(3)
         work = False
+        time.sleep(3)
         os.system('cls')
