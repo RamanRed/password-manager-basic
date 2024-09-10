@@ -2,7 +2,7 @@ import random
 from dotenv import load_dotenv
 from json import *
 import os
-
+import time
 load_dotenv()
 
 key= os.getenv("MASTER_KEY")
@@ -38,7 +38,7 @@ def passgenerator():
     g_pass="".join(lis)
     return g_pass
 
-def search():
+def Search():
     """ No paramertres are required.
     searches the website name from the file. This is function is only avaliable for json format.  
     """
@@ -94,26 +94,51 @@ def Save():
     with open("./password.json", mode="w") as j_obj:
             dump(dic, j_obj, indent=4)           
             
-def  delete():
+def  Delete():
         """this function delete the sub json block from the main Json Storage"""
-        with open("./password.json", mode="r") as json_obj:
-                    dic=load(json_obj)    
-                    
-                    if len(dic) == 0 :
-                        print("THe jspn file is empty !!! \n first add data")
-                    else :
-                        website = input("Enter the website name to be ")
-                        for j in dic :
-                            if j == website:
-                                del dic[website]
-                                with open("./password.json", mode="w") as j_j:
-                                        dump(dic, j_j, indent=4)
-                                print(f" website : {website} deleted")        
-                                
-def display():
+        entered_key = input("Enter master key for authority:"):
+        if key ==  entered_key:   
+            with open("./password.json", mode="r") as json_obj:
+                        dic=load(json_obj)    
+                        
+                        if len(dic) == 0 :
+                            print("THe jspn file is empty !!! \n first add data")
+                        else :
+                            website = input("Enter the website name to be ")
+                            for j in dic :
+                                if j == website:
+                                    del dic[website]
+                                    with open("./password.json", mode="w") as j_j:
+                                            dump(dic, j_j, indent=4)
+                                    print(f" website : {website} deleted")        
+        else :
+            print("Your are not a authorize person!!!")
+            
+                                    
+def Display():
     """this function is for displaying all the content of json file format with master key """
     entered_key = input("Enter the mater key:")
     if key == entered_key:
         with open("./password.json", mode="r") as jjk:
                 dic = load(jjk)
-                print(dic)                        
+                print(dic)  
+    else :
+        print("incorrect master key !!!")                                  
+                
+work = input("Do you want to work with password manager: \n Enter True or False:").capitalize()
+while(work):
+    print(" Enter 1 to Display data \n Enter 2 to Delete Password \n Enter 3 to Save Password \n Enter 4 to Search Password \n Enter 5 to Exit System")
+    ch = input()
+    if(ch ==1):
+        Display()   
+    elif(ch ==2):
+        Delete()
+    elif(ch ==3):
+        Save()
+    elif(ch ==4):
+        Search()
+    elif(ch ==5):
+        print("Your getting exit from system...3")
+        time.sleep(3)
+        work = False
+        os.system('cls')
