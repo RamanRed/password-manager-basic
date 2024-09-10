@@ -94,4 +94,13 @@ def  delete():
                     
                     if len(dic) == 0 :
                         print("THe jspn file is empty !!! \n first add data")
-           
+                    else :
+                        website = input("Enter the website name to be ")
+                        for j in dic :
+                            if j == website:
+                                del dic[website]
+                                with open("./password.json", mode="w") as j_j:
+                                        dump(dic, j_j, indent=4)
+                                print(f" website : {website} deleted")        
+                                
+                                  
